@@ -15,12 +15,12 @@ chat_id = 1031228237 # Ваш chat ID, не меняйте название пе
 #            loc - scale * norm.ppf(alpha / 2)
 
 def solution(p: float, x: np.array) -> tuple:
-    t = 44
+    # Измените код этой функции
+    alpha = 1 - p
     n = len(x)
-    d = x
-    a = 2 * d / t ** 2
-    mean_a = np.mean(a)
-    std_a = 2 * np.std(d) / t ** 2 * np.sqrt(n)
-    left = mean_a - norm.ppf(1 - p / 2) * (std_a / np.sqrt(n))
-    right = mean_a + norm.ppf(1 - p / 2) * (std_a / np.sqrt(n))
-    return left, right
+    loc = np.mean(x) / 44
+    scale = np.sqrt(np.var(x) / n) / 44
+    t_value = t.ppf(1 - alpha / 2, n - 1)
+    left_bound = loc - t_value * scale
+    right_bound = loc + t_value * scale
+    return left_bound, right_bound
